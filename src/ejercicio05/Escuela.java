@@ -5,38 +5,61 @@ import java.util.ArrayList;
 public class Escuela {
 	private String nombre;
 	private Domicilio domicilio;
-	private ArrayList<Mesa> mesasDeVotacion;
+	private ArrayList<Mesa> mesas;
 
 	public Escuela(String nombre, Domicilio domicilio) {
 		super();
 		this.nombre = nombre;
 		this.domicilio = domicilio;
-		this.mesasDeVotacion = new ArrayList<Mesa>();
+		this.mesas = new ArrayList<>();
 	}
 
-	public void designarPresidenteDeMesa(Mesa mesa, Persona persona) {
-		removerDeOtraMesa(persona);
-		mesa.designarPresidente(persona);
-
-	}
-
-	private void removerDeOtraMesa(Persona persona) {
-		for (Mesa m : mesasDeVotacion) {
-			m.removerVotante(persona);
+	public void designarPresidenteDeMesa(Mesa m, Persona p) {
+		Mesa mBuscada;
+		mBuscada = Padron.buscMesaConVotante(p);
+		if (mBuscada != null) {
+			mBuscada.darBajaDelPadronAPersona(p);
 		}
+		m.designarPresidente(p);
+	}
+
+	public Mesa buscarMesaConVotante(Persona p) {
+		Mesa mesaBusc = null;
+		Mesa mesa = null;
+		int pos = 0;
+
+		while (pos < mesas.size() && mesaBusc == null) {
+			mesa = mesas.get(pos);
+			if (mesa.tieneALaPersona(p)) {
+				mesaBusc = mesa;
+			} else {
+				pos++;
+			}
+		}
+		return mesaBusc;
 	}
 
 	public ArrayList<Informe> obtenerInforme() {
-		ArrayList<Informe> informes = new ArrayList<Informe>();
-		for (Mesa m : mesasDeVotacion) {
+		ArrayList<Informe> informes = new ArrayList<>();
+
+		for (Mesa m : mesas) {
 			m.generarInforme(informes);
 		}
 		return informes;
 	}
 
-	@Override
-	public String toString() {
-		return "Escuela [nombre=" + nombre + ", domicilio=" + domicilio + ", mesasDeVotacion=" + mesasDeVotacion + "]";
+	public boolean agregarMesa(Mesa m) {
+		return this.mesas.add(m);
+	}
+
+	public void mostrarMesasConPresidentes() {
+		for (Mesa m : mesas) {
+			m.mostrarMesasConPresidentes();
+		}
+	}
+
+	public String getNombre() {
+		return this.nombre;
 	}
 
 }

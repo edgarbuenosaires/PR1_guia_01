@@ -3,45 +3,82 @@ package ejercicio05;
 import java.util.ArrayList;
 
 public class Mesa {
-	private int numeroDeMesa;
+	private int numero;
 	private Persona presidente;
-	private ArrayList<Persona> personasVotantes;
+	private ArrayList<Persona> personas;
 
-	public Mesa(int numero, Persona presidente) {
+	public Mesa(Persona presidente) {
 		super();
-		this.numeroDeMesa = numero;
-		this.presidente = presidente;
-		this.personasVotantes = new ArrayList<Persona>();
+		this.numero = Padron.generarNumeroMesa();
+		this.personas = new ArrayList<>();
+		designarPresidente(presidente);
 	}
 
-	@Override
-	public String toString() {
-		return "Mesa [numero=" + numeroDeMesa + ", presidente=" + presidente + ", personasVotantes=" + personasVotantes
-				+ "]";
+	public boolean agregarPersona(Persona p) {
+		darBajaDelPadronAPersona(p);
+		return personas.add(p);
 	}
 
-	public void designarPresidente(Persona persona) {
-		personasVotantes.add(persona);
-		presidente = persona;
+	public boolean designarPresidente(Persona p) {
+		darBajaDelPadronAPersona(p);
+		this.presidente = p;
+		return this.personas.add(p);
+	}
+
+	public void darBajaDelPadronAPersona(Persona p) {
+		Mesa mesa;
+		mesa = Padron.buscMesaConVotante(p);
+
+		if (mesa != null) {
+			if (mesa.getPresidente().getDni().equalsIgnoreCase(p.getDni())) {
+				mesa.eliminarPresidente();
+			}
+			mesa.removerPersona(p);
+		}
 
 	}
 
-	public void removerVotante(Persona persona) {
-		for (Persona p : personasVotantes) {
-			if (p == persona) {
-				personasVotantes.remove(p);
-				if (presidente == persona)
-					presidente = null;
+	private void eliminarPresidente() {
+		this.presidente = null;
+
+	}
+
+	private Persona getPresidente() {
+		return this.presidente;
+	}
+
+	public boolean removerPersona(Persona p) {
+		return this.personas.remove(p);
+	}
+
+	public boolean tieneALaPersona(Persona p) {
+		Persona buscada = null;
+		Persona persona = null;
+		int pos = 0;
+
+		while (pos < personas.size() && buscada == null) {
+			persona = personas.get(pos);
+			if (persona.getDni().equalsIgnoreCase(p.getDni())) {
+				buscada = persona;
+			} else {
+				pos++;
 			}
 		}
-
+		return buscada != null;
 	}
 
-	public ArrayList<Informe> generarInforme(ArrayList<Informe> informes) {
-		for (Persona persona : personasVotantes) {
-			informes.add(persona.generarInforme(numeroDeMesa, personasVotantes.indexOf(persona)));
+	public void generarInforme(ArrayList<Informe> informes) {
+		int orden = 1;
+
+		for (Persona p : personas) {
+			Informe inf = new Informe(numero, orden, p.getDni(), p.getNombre(), p.getApellido());
+			informes.add(inf);
+			orden++;
 		}
-		return informes;
+	}
+
+	public void mostrarMesasConPresidentes() {
+		System.out.println("Mesa " + this.numero + " presidente: " + this.presidente);
 
 	}
 

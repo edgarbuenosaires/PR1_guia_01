@@ -1,23 +1,25 @@
 package ejercicio05;
 
 public class Informe {
-	private int numeroDeMesa;
-	private int numeroDeOrdenDelVotante;
+	private int nroMesa;
+	private int nroOrdenPersona;
 	private String dni;
-	private String apellidoYNombre;
+	private String nombre;
+	private String apellido;
 
-	public Informe(int numeroDeMesa, int numeroDeOrdenDelVotante, String dni, String apellidoYNombre) {
+	public Informe(int nroMesa, int nroOrdenPersona, String dni, String nombre, String apellido) {
 		super();
-		this.numeroDeMesa = numeroDeMesa;
-		this.numeroDeOrdenDelVotante = numeroDeOrdenDelVotante;
+		this.nroMesa = nroMesa;
+		this.nroOrdenPersona = nroOrdenPersona;
 		this.dni = dni;
-		this.apellidoYNombre = apellidoYNombre;
+		this.nombre = nombre;
+		this.apellido = apellido;
 	}
 
 	@Override
 	public String toString() {
-		return "Informe [numeroDeMesa=" + numeroDeMesa + ", numeroDeOrdenDelVotante=" + numeroDeOrdenDelVotante
-				+ ", dni=" + dni + ", apellidoYNombre=" + apellidoYNombre + "]";
+		return "N. de mesa: " + nroMesa + ", Orden: " + nroOrdenPersona + ", DNI: " + dni + ", Nombre: " + nombre
+				+ ", Apellido: " + apellido + ".\n";
 	}
 
 }
