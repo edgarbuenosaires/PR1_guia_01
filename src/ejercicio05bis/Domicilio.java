@@ -13,6 +13,5 @@ public class Domicilio {
 	}
 
 	// - - - - - - - - - - chequeado
-	
-	
+
 }

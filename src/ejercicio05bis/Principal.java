@@ -22,21 +22,20 @@ public class Principal {
 		e1.agregarMesa(m1);
 		e2.agregarMesa(m2);
 
-		m1.agregarPersona(p1); // A LA MESA 1 VUELVO A AGREGAR A JOSE GOMEZ
-		m1.agregarPersona(p2); // A LA MESA 1 LE AGREGO A LA PRESIDENTA DE LA MESA 2
-//		m2.agregarPersona(p3); // A LA MESA 2 LE AGREGO A NERY PELOSO
-
+		m1.agregarPersona(p2);
+		m1.agregarPersona(p2);
+		m2.agregarPersona(p3);
 
 		System.out.println("Muestro informe");
 		padron.mostrarInforme();
 
-//		System.out.println("\nMuestro mesas con presidentes.");
-//		padron.mostrarMesasConPresidentes();
-//
-//		System.out.println("\nEnvio a Jose Gomez a la mesa 2");
-//		e2.designarPresidenteDeMesa(m1, p3);
-//		
-//		System.out.println("\nMuestro mesas con presidentes.");
-//		padron.mostrarMesasConPresidentes();
+		System.out.println("\nMuestro mesas con presidentes.");
+		padron.mostrarMesasConPresidentes();
+
+		System.out.println("\nEnvio a Jose Gomez a la mesa 2");
+		e2.designarPresidenteDeMesa(m2, p1);
+
+		System.out.println("\nMuestro mesas con presidentes.");
+		padron.mostrarMesasConPresidentes();
 	}
 }

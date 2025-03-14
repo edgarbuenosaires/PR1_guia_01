@@ -15,47 +15,57 @@ public class Mesa {
 	}
 
 	public boolean agregarPersona(Persona p) {
-		return (!estaEnElPadron(p)) ? this.personas.add(p) : false;
+		darBajaDelPadron(p);
+		return personas.add(p);
 	}
-	
-	
-	
+
 	public boolean designarPresidente(Persona p) {
+		darBajaDelPadron(p);
+		this.presidente = p;
+		return this.personas.add(p);
+	}
+
+	public void darBajaDelPadron(Persona p) {
 		Mesa mesa;
 		mesa = Padron.buscMesaConVotante(p);
 
 		if (mesa != null) {
+			if (mesa.getPresidente().getDni().equalsIgnoreCase(p.getDni())) {
+				mesa.eliminarPresidente();
+			}
 			mesa.removerPersona(p);
 		}
 
-		this.presidente = p;
-		return this.personas.add(p);
+	}
+
+	private void eliminarPresidente() {
+		this.presidente = null;
+
+	}
+
+	private Persona getPresidente() {
+		return this.presidente;
 	}
 
 	public boolean removerPersona(Persona p) {
 		return this.personas.remove(p);
 	}
 
-	public boolean estaEnElPadron(Persona p) {
-		Mesa mesa;
-		mesa = Padron.buscMesaConVotante(p);
+	public boolean tieneALaPersona(Persona p) {
+		Persona buscada = null;
+		Persona persona = null;
+		int pos = 0;
 
-		if (mesa != null) {
-			mesa.removerPersona(p);
+		while (pos < personas.size() && buscada == null) {
+			persona = personas.get(pos);
+			if (persona.getDni().equalsIgnoreCase(p.getDni())) {
+				buscada = persona;
+			} else {
+				pos++;
+			}
 		}
-		return personas.contains(p);
+		return buscada != null;
 	}
-
-
-
-
-	
-	
-	
-	
-	
-	
-	
 
 	public void generarInforme(ArrayList<Informe> informes) {
 		int orden = 1;

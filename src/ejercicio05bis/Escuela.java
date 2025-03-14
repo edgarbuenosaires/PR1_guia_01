@@ -13,24 +13,24 @@ public class Escuela {
 		this.domicilio = domicilio;
 		this.mesas = new ArrayList<>();
 	}
-	
+
 	public void designarPresidenteDeMesa(Mesa m, Persona p) {
 		Mesa mBuscada;
 		mBuscada = Padron.buscMesaConVotante(p);
 		if (mBuscada != null) {
-			mBuscada.removerPersona(p);
+			mBuscada.darBajaDelPadron(p);
 		}
 		m.designarPresidente(p);
 	}
 
 	public Mesa buscarMesaConVotante(Persona p) {
 		Mesa mesaBusc = null;
-		Mesa mesa;
+		Mesa mesa = null;
 		int pos = 0;
 
 		while (pos < mesas.size() && mesaBusc == null) {
 			mesa = mesas.get(pos);
-			if (mesa.estaEnElPadron(p)) {
+			if (mesa.tieneALaPersona(p)) {
 				mesaBusc = mesa;
 			} else {
 				pos++;
@@ -39,33 +39,6 @@ public class Escuela {
 		return mesaBusc;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public ArrayList<Informe> obtenerInforme() {
 		ArrayList<Informe> informes = new ArrayList<>();
 

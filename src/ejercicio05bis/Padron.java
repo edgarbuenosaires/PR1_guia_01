@@ -26,7 +26,7 @@ public class Padron {
 		}
 		return mesBusc;
 	}
-	
+
 	public boolean agregarEscuela(Escuela e) {
 		return ((buscarEscuela(e) == null) ? Padron.escuelas.add(e) : false);
 	}
@@ -48,18 +48,6 @@ public class Padron {
 		return numMesa++;
 	}
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	public void mostrarInforme() {
 		for (Escuela e : escuelas) {
 			System.out.println(e.obtenerInforme() + "\n");
