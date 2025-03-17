@@ -1,21 +1,16 @@
 package ejercicio06;
 
 public class Materia {
-	private String nomMateria;
-	private int notaFinal;
+	private String nombre;
+	private double notaFinal;
 
-	public Materia(String nomMateria, int notaFinal) {
-		super();
-		this.nomMateria = nomMateria;
+	public Materia(String nombre, int notaFinal) {
+		this.nombre = nombre;
 		this.notaFinal = notaFinal;
 	}
 
-	public int getNota() {
-		return notaFinal;
-	}
-
-	public String getNomMateria() {
-		return nomMateria;
+	public double getNota() {
+		return this.notaFinal;
 	}
 
 }

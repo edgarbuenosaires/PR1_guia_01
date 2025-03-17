@@ -1,18 +1,17 @@
 package ejercicio06;
 
 public class Candidato {
-	private String nombreCandidato;
+	private String nomCandidato;
 	private String mailCandidato;
 
-	public Candidato(String nombreCandidato, String mailCandidato) {
-		super();
-		this.nombreCandidato = nombreCandidato;
-		this.mailCandidato = mailCandidato;
+	public Candidato(String nom, String mail) {
+		this.nomCandidato = nom;
+		this.mailCandidato = mail;
 	}
 
 	@Override
 	public String toString() {
-		return "Candidato [nombreCandidato=" + nombreCandidato + ", mailCandidato=" + mailCandidato + "]";
+		return "Candidato " + nomCandidato + ", mail " + mailCandidato + ".";
 	}
 
 }

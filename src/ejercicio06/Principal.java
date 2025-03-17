@@ -1,4 +1,4 @@
-package ejercicio06bis;
+package ejercicio06;
 
 import java.util.ArrayList;
 
@@ -29,9 +29,17 @@ public class Principal {
 		a1.agregarMateria(m7);
 		a1.agregarMateria(m8);
 
+		a2.agregarMateria(m1);
+		a2.agregarMateria(m2);
+		a2.agregarMateria(m3);
+		a2.agregarMateria(m4);
+		a2.agregarMateria(m5);
+		a2.agregarMateria(m6);
+		a2.agregarMateria(m7);
+		a2.agregarMateria(m8);
+
 		System.out.println("Muestro candidatos con promedio mayor a 10");
 		ArrayList<Candidato> candidatos = c.obtenerCandidatos(4);
-		System.out.println("bandera");
 		for (Candidato cand : candidatos) {
 			System.out.println(cand);
 		}
