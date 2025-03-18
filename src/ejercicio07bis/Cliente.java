@@ -10,6 +10,20 @@ public class Cliente {
 	private String telefono;
 	private ArrayList<Pedido> historialDePedidos;
 
+	public Cliente(String nombre, String apellido, String dirección, String email, String telefono) {
+		super();
+		this.nombre = nombre;
+		this.apellido = apellido;
+		this.dirección = dirección;
+		this.email = email;
+		this.telefono = telefono;
+		this.historialDePedidos = new ArrayList<>();
+	}
+	
+	public boolean agregarPedido(Pedido p){
+		return historialDePedidos.add(p);
+	}
+
 	public Pedido getPedidoPendiente() {
 		return buscarPedidoPendiente();
 	}
@@ -27,8 +41,12 @@ public class Cliente {
 		return pedidoPendiente;
 	}
 
-	public boolean confirmarPedido() {
+	public void confirmarPedido() {
+		Pedido ped = buscarPedidoPendiente();
 
-		return false;
+		for (Item i : ped.getItemsPedidos()) {
+			Portal.reducirStock(i.getNomProducto(), i.getCantidad());
+		}
+		ped.confirmar();
 	}
 }

@@ -12,4 +12,17 @@ public class Producto {
 		this.cantEnSock = cantEnSock;
 	}
 
+	public void reducirCantidad(int cantidad) {
+		this.cantEnSock = cantEnSock - cantidad;
+
+	}
+
+	public String getNomProducto() {
+		return this.nombre;
+	}
+
+	public boolean verificarStock(int cantidad) {
+		return this.cantEnSock >= cantidad;
+	}
+
 }
