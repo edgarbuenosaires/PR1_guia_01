@@ -1,26 +1,29 @@
 package ejercicio07;
 
 public class Item {
-	private Producto producto;
-	private int cantidadPedida;
+	private String nomProducto;
+	private int cantidad;
+	
+	
 
-	public Item(Producto producto, int cantidadPedida) {
+	public Item(String nomProducto, int cantidad) {
 		super();
-		this.producto = producto;
-		this.cantidadPedida = cantidadPedida;
+		this.nomProducto = nomProducto;
+		this.cantidad = cantidad;
 	}
 
-	public String getNombreProducto() {
-		return this.producto.getNomProducto();
+	public String getNomProducto() {
+		return nomProducto;
 	}
 
-	public int getCantidadPedida() {
-		return cantidadPedida;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void descontarCantidadPedida() {
-		this.producto.reducirStock(cantidadPedida);
-
+	@Override
+	public String toString() {
+		return "Item [nomProducto=" + nomProducto + ", cantidad=" + cantidad + "]";
 	}
 
+	
 }

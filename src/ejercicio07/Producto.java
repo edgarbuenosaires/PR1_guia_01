@@ -1,34 +1,34 @@
 package ejercicio07;
 
 public class Producto {
-	private String nomProducto;
+	private String nombre;
 	private double precioUnitario;
-	private int cantEnStock;
+	private int cantEnSock;
 
-	public Producto(String nomProducto, double precioUnitario, int cantEnStock) {
+	public Producto(String nombre, double precioUnitario, int cantEnSock) {
 		super();
-		this.nomProducto = nomProducto;
+		this.nombre = nombre;
 		this.precioUnitario = precioUnitario;
-		this.cantEnStock = cantEnStock;
+		this.cantEnSock = cantEnSock;
+	}
+
+	public void reducirCantidad(int cantidad) {
+		this.cantEnSock = cantEnSock - cantidad;
+
 	}
 
 	public String getNomProducto() {
-		return nomProducto;
+		return this.nombre;
 	}
 
-	public boolean stockMayorA(int valor) {
-		return this.cantEnStock >= valor;
-	}
-
-	public void reducirStock(int valor) {
-		if (valor <= cantEnStock)
-			cantEnStock -= valor;
+	public boolean verificarStock(int cantidad) {
+		return this.cantEnSock >= cantidad;
 	}
 
 	@Override
 	public String toString() {
-		return "Producto [nomProducto=" + nomProducto + ", precioUnitario=" + precioUnitario + ", cantEnStock="
-				+ cantEnStock + "]";
+		return "Producto [nombre=" + nombre + ", precioUnitario=" + precioUnitario + ", cantEnSock=" + cantEnSock + "]";
 	}
 
+	
 }

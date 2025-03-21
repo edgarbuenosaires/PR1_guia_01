@@ -6,37 +6,41 @@ public class Pedido {
 	private String fecha;
 	private String hora;
 	private Estado estado;
-	private ArrayList<Item> items;
+	private ArrayList<Item> itemsPedidos;
 
-	public ArrayList<Item> obtenerItems() {
-		ArrayList<Item> itemsPedidos = new ArrayList<Item>();
-		for (Item item : items) {
-			itemsPedidos.add(item);
-		}
+	public Pedido(String fecha, String hora, Estado estado) {
+		super();
+		this.fecha = fecha;
+		this.hora = hora;
+		this.estado = estado;
+		this.itemsPedidos = new ArrayList<>();
+	}
+
+	public boolean agregarItem(Item i) {
+		return itemsPedidos.add(i);
+	}
+
+	public boolean estaPendiente() {
+		return this.estado == Estado.PENDIENTE;
+	}
+
+	public ArrayList<Item> getItemsPedidos() {
 		return itemsPedidos;
 	}
 
-	public void pasaAConfirmado() {
+	public boolean removerItem(Item i) {
+		return this.itemsPedidos.remove(i);
+	}
+
+	public void confirmar() {
 		this.estado = Estado.CONFIRMADO;
+		System.out.println(this.estado);
 	}
 
-	public void remover(Item i) {
-		this.items.remove(i);
-	}
-
-	public Estado getEstado() {
-		return this.estado;
-	}
-
-	public void descontarCantidadPedida() {
-		for (Item item : items) {
-			item.descontarCantidadPedida();
+	public void muestroItemsdelPedido() {
+		for (Item item : itemsPedidos) {
+			System.out.println(item);
 		}
-	}
-
-	@Override
-	public String toString() {
-		return "Pedido [fecha=" + fecha + ", hora=" + hora + ", estado=" + estado + "]";
 	}
 
 }
