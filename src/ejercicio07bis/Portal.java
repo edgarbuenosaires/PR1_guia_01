@@ -23,8 +23,11 @@ public class Portal {
 	public ArrayList<Producto> procesarPedido(Cliente c) {
 		ArrayList<Producto> prodFaltantes = new ArrayList<>();
 		Pedido p = c.getPedidoPendiente();
-		
-		for (Item i : p.getItemsPedidos()) {
+		Item i = null;
+		int pos = 0;
+
+		while (pos < p.getItemsPedidos().size()) {
+			i = p.getItemsPedidos().get(pos);
 			if (verificarStock(i.getNomProducto(), i.getCantidad())) {
 				c.confirmarPedido();
 			} else {
@@ -32,7 +35,9 @@ public class Portal {
 				prodFaltantes.add(producFaltante);
 				p.removerItem(i);
 			}
+			pos++;
 		}
+
 		return prodFaltantes;
 	}
 

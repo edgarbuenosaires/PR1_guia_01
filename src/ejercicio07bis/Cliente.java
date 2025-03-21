@@ -19,8 +19,8 @@ public class Cliente {
 		this.telefono = telefono;
 		this.historialDePedidos = new ArrayList<>();
 	}
-	
-	public boolean agregarPedido(Pedido p){
+
+	public boolean agregarPedido(Pedido p) {
 		return historialDePedidos.add(p);
 	}
 
@@ -43,9 +43,14 @@ public class Cliente {
 
 	public void confirmarPedido() {
 		Pedido ped = buscarPedidoPendiente();
+		Item i = null;
+		int pos = 0;
 
-		for (Item i : ped.getItemsPedidos()) {
+		while (pos < ped.getItemsPedidos().size()) {
+			//System.out.println("bandera");
+			i = ped.getItemsPedidos().get(pos);
 			Portal.reducirStock(i.getNomProducto(), i.getCantidad());
+			pos++;
 		}
 		ped.confirmar();
 	}

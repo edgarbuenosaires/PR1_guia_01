@@ -25,4 +25,10 @@ public class Producto {
 		return this.cantEnSock >= cantidad;
 	}
 
+	@Override
+	public String toString() {
+		return "Producto [nombre=" + nombre + ", precioUnitario=" + precioUnitario + ", cantEnSock=" + cantEnSock + "]";
+	}
+
+	
 }
