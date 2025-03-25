@@ -5,7 +5,6 @@ public class Persona {
 	private String nombreCompleto;
 
 	public Persona(String dni, String nombreCompleto) {
-		super();
 		this.dni = dni;
 		this.nombreCompleto = nombreCompleto;
 	}

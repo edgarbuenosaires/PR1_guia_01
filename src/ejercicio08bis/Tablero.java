@@ -6,7 +6,6 @@ public class Tablero {
 	private ArrayList<Llave> llavesDeVehiculosEstacionados;
 
 	public Tablero() {
-		super();
 		this.llavesDeVehiculosEstacionados = new ArrayList<>();
 	}
 
@@ -19,7 +18,13 @@ public class Tablero {
 		boolean encontrada = false;
 		while (pos < llavesDeVehiculosEstacionados.size() && !encontrada) {
 			encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
+			pos++;
 		}
-		return (!encontrada) ? null : pos;
+		return (encontrada) ? pos : null;
+	}
+
+	public void agregarLlave(Llave llave) {
+		this.llavesDeVehiculosEstacionados.add(llave);
+
 	}
 }

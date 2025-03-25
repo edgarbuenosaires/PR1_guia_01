@@ -8,34 +8,53 @@ public class Garaje {
 	private ArrayList<Vehiculo> vehiculosRetirados;
 	private Tablero tablero;
 
+	public Garaje(String codigo, Tablero tablero) {
+		this.codigo = codigo;
+		this.tablero = tablero;
+		this.vehiculosEstacionados = new ArrayList<>();
+		this.vehiculosRetirados = new ArrayList<>();
+	}
+
 	public Resultado estacionarVehiculo(String patente) {
-		Resultado result = null;
+		Resultado resul = null;
 		Vehiculo v = null;
-		v = buscarVehiculoEnEstacionados(patente);
+		v = buscarVehiculoEn(vehiculosEstacionados, patente);
 
 		if (v != null) {
-			result = Resultado.VEHICULO_YA_ESTACIONADO;
+			resul = Resultado.VEHICULO_YA_ESTACIONADO;
 		} else {
-			v = buscarVehiculoEnRetirados(patente);
+			v = buscarVehiculoEn(vehiculosRetirados, patente);
 			if (v != null) {
 				if (v.getMesesAdeudados() < Empresa.MESES_TOLERADOS) {
-					result = Resultado.INGRESO_OK;
+					ingresarVehiculo(v);
+					resul = Resultado.INGRESO_OK;
+				} else {
+					resul = Resultado.NO_ESTACIONA_ADEUDA;
 				}
 			} else {
-				result = Resultado.VEHICULO_NO_HABILITADO;
+				resul = Resultado.VEHICULO_NO_HABILITADO;
 			}
 		}
-		return result;
+		return resul;
 	}
 
-	private Vehiculo buscarVehiculoEnEstacionados(String patente) {
-		// TODO Auto-generated method stub
-		return null;
+	private Vehiculo buscarVehiculoEn(ArrayList<Vehiculo> vehiculos, String patente) {
+		Vehiculo v = null;
+		int pos = 0;
+
+		while (pos < vehiculos.size() && v == null) {
+			if (vehiculos.get(pos).esPatente(patente)) {
+				v = vehiculos.get(pos);
+			}
+			pos++;
+		}
+		return v;
 	}
 
-	private Vehiculo buscarVehiculoEnRetirados(String patente) {
-		// TODO Auto-generated method stub
-		return null;
+	private void ingresarVehiculo(Vehiculo v) {
+		vehiculosRetirados.remove(v);
+		vehiculosEstacionados.add(v);
+		tablero.agregarLlave(v.retirarLlave());
 	}
 
 	private boolean esPersonaAutorizada(String dni) {
