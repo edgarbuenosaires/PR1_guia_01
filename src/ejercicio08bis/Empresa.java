@@ -10,15 +10,22 @@ public class Empresa {
 		this.garajes = new ArrayList<>();
 	}
 
-	public void obtenerInformeEstadoGarajes() {
-
-		// hacer
+	public ArrayList<InformeEstadoGarajes> obtenerInformeEstadoGarajes() {
+		ArrayList<InformeEstadoGarajes> informe = new ArrayList<>();
+		for (Garaje g : garajes) {
+			InformeEstadoGarajes i = new InformeEstadoGarajes(g.getCodigo(),
+					g.getCantVehiculosEstacionados());
+			informe.add(i);
+		}
+		return informe;
 
 	}
 
 	public void mostrarVehiculosSinLlave() {
 
-		// hacer
+	for (Garaje g : garajes) {
+		g.mostrarVehiculosEstacionadosSinLlaveEnTablero();
+	}
 
 	}
 }

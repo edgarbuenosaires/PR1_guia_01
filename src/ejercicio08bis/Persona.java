@@ -9,4 +9,8 @@ public class Persona {
 		this.nombreCompleto = nombreCompleto;
 	}
 
+	public boolean esDni(String dni2) {
+		return this.dni.equalsIgnoreCase(dni2);
+	}
+
 }

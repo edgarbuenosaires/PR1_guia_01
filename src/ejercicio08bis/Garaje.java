@@ -4,26 +4,26 @@ import java.util.ArrayList;
 
 public class Garaje {
 	private String codigo;
-	private ArrayList<Vehiculo> vehiculosEstacionados;
-	private ArrayList<Vehiculo> vehiculosRetirados;
+	private ArrayList<Vehiculo> estacionados;
+	private ArrayList<Vehiculo> retirados;
 	private Tablero tablero;
 
 	public Garaje(String codigo, Tablero tablero) {
 		this.codigo = codigo;
 		this.tablero = tablero;
-		this.vehiculosEstacionados = new ArrayList<>();
-		this.vehiculosRetirados = new ArrayList<>();
+		this.estacionados = new ArrayList<>();
+		this.retirados = new ArrayList<>();
 	}
 
 	public Resultado estacionarVehiculo(String patente) {
 		Resultado resul = null;
 		Vehiculo v = null;
-		v = buscarVehiculoEn(vehiculosEstacionados, patente);
+		v = buscarVehiculoEn(estacionados, patente);
 
 		if (v != null) {
 			resul = Resultado.VEHICULO_YA_ESTACIONADO;
 		} else {
-			v = buscarVehiculoEn(vehiculosRetirados, patente);
+			v = buscarVehiculoEn(retirados, patente);
 			if (v != null) {
 				if (v.getMesesAdeudados() < Empresa.MESES_TOLERADOS) {
 					ingresarVehiculo(v);
@@ -52,15 +52,36 @@ public class Garaje {
 	}
 
 	private void ingresarVehiculo(Vehiculo v) {
-		vehiculosRetirados.remove(v);
-		vehiculosEstacionados.add(v);
+		retirados.remove(v);
+		estacionados.add(v);
 		tablero.agregarLlave(v.retirarLlave());
 	}
 
 	private boolean esPersonaAutorizada(String dni) {
+		Vehiculo vehiculo = null;
+		int pos = 0;
 
-		// hacer
+		while (pos < estacionados.size() && vehiculo == null) {
+			if (estacionados.get(pos).tieneAutorizadoA(dni)) {
+				vehiculo = estacionados.get(pos);
+			}
+			pos++;
+		}
+		return vehiculo != null;
+	}
 
-		return false;
+	public String getCodigo() {
+		return this.codigo;
+	}
+
+	public int getCantVehiculosEstacionados() {
+		return this.estacionados.size();
+	}
+
+	public void mostrarVehiculosEstacionadosSinLlaveEnTablero() {
+		for (Vehiculo v : estacionados) {
+			
+		}
+		
 	}
 }

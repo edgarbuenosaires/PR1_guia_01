@@ -9,6 +9,10 @@ public class Tablero {
 		this.llavesDeVehiculosEstacionados = new ArrayList<>();
 	}
 
+	public void agregarLlave(Llave llave) {
+		this.llavesDeVehiculosEstacionados.add(llave);
+	}
+
 	public Llave devovlerLlave(String patente) {
 		return llavesDeVehiculosEstacionados.remove(buscarPosDeLlave(patente));
 	}
@@ -23,8 +27,4 @@ public class Tablero {
 		return (encontrada) ? pos : null;
 	}
 
-	public void agregarLlave(Llave llave) {
-		this.llavesDeVehiculosEstacionados.add(llave);
-
-	}
 }
