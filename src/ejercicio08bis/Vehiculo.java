@@ -44,4 +44,13 @@ public class Vehiculo {
 		}
 		return null;
 	}
+
+	public String getPatente() {
+		return this.patente;
+	}
+	
+
+	public boolean agregarPersonaAutorizada(Persona p) {
+		return this.autorizadosParaRetirar.add(p);
+	}
 }

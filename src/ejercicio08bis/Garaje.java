@@ -57,7 +57,7 @@ public class Garaje {
 		tablero.agregarLlave(v.retirarLlave());
 	}
 
-	private boolean esPersonaAutorizada(String dni) {
+	public boolean esPersonaAutorizada(String dni) {
 		Vehiculo vehiculo = null;
 		int pos = 0;
 
@@ -80,8 +80,26 @@ public class Garaje {
 
 	public void mostrarVehiculosEstacionadosSinLlaveEnTablero() {
 		for (Vehiculo v : estacionados) {
-			
+			if (tablero.estaLlaveDelVehiculoPatante(v.getPatente())) {
+				System.out.println("Garaje: " + this.codigo + " patente: " + v.getPatente());
+			}
 		}
-		
+	}
+
+	public void agregarVehiculoYLlave(Vehiculo v, Llave llave) {
+		estacionados.add(v);
+		tablero.agregarLlave(llave);
+		System.out.println("Vehiculo patente: " + v.getPatente() + " agregado con éxito.");
+	}
+
+	public void retirarVehiculo(Vehiculo buscado) {
+		Vehiculo vehiculo = null;
+		vehiculo = buscarVehiculoEn(estacionados, buscado.getPatente());
+		if (vehiculo != null) {
+			estacionados.remove(vehiculo);
+			System.out.println("se retiró vehiculo patente " + vehiculo.getPatente());
+			tablero.devovlerLlave(vehiculo.getPatente());
+			retirados.add(vehiculo);
+		}
 	}
 }

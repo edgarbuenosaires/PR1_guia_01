@@ -10,4 +10,10 @@ public class InformeEstadoGarajes {
 		this.cantVehiculosEstacionados = cantVehiculosEstacionados;
 	}
 
+	@Override
+	public String toString() {
+		return "InformeEstadoGarajes [codigoGaraje=" + codigoGaraje + ", cantVehiculosEstacionados="
+				+ cantVehiculosEstacionados + "]";
+	}
+
 }
