@@ -80,7 +80,7 @@ public class Garaje {
 
 	public void mostrarVehiculosEstacionadosSinLlaveEnTablero() {
 		for (Vehiculo v : estacionados) {
-			if (tablero.estaLlaveDelVehiculoPatante(v.getPatente())) {
+			if (!tablero.estaLlaveDelVehiculoPatante(v.getPatente())) {
 				System.out.println("Garaje: " + this.codigo + " patente: " + v.getPatente());
 			}
 		}

@@ -41,20 +41,22 @@ public class Principal {
 		v2.agregarPersonaAutorizada(p3);
 		v2.agregarPersonaAutorizada(p4);
 
-		System.out.println("< < < < < < < INTENTO RETIRAR VEHICULO > > > > > > >");
+		System.out.println("\n< < < < < < < INTENTO RETIRAR VEHICULO > > > > > > >");
+		System.out.println("los vehiculos estacionados son " + g1.getCantVehiculosEstacionados());
 		g1.retirarVehiculo(v1);
+		System.out.println("los vehiculos estacionados son " + g1.getCantVehiculosEstacionados());
 
-		System.out.println("< < < < < < < INTENTO ESTACIONAR  VEHICULOS: > > > > > > >");
+		System.out.println("\n< < < < < < < INTENTO ESTACIONAR  VEHICULOS: > > > > > > >");
 		System.out.println(g1.estacionarVehiculo(v1.getPatente()));
 		System.out.println(g1.estacionarVehiculo(v2.getPatente()));
 		System.out.println(g1.estacionarVehiculo(v6.getPatente()));
 
-		System.out.println("< < < < < < < MUESTRO ESTADO DE LOS GARAJES > > > > > > >");
+		System.out.println("\n< < < < < < < MUESTRO ESTADO DE LOS GARAJES > > > > > > >");
 		for (InformeEstadoGarajes i : e.obtenerInformeEstadoGarajes()) {
 			System.out.println(i);
 		}
 
-		System.out.println("< < < < < < < INTENTO MOSTRAR VEHICULOS ESTACIONADOS SIN LLAVE > > > > > > >");
+		System.out.println("\n< < < < < < < INTENTO MOSTRAR VEHICULOS ESTACIONADOS SIN LLAVE > > > > > > >");
 		e.mostrarVehiculosSinLlave();
 
 	}
