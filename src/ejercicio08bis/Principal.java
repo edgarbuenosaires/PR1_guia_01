@@ -60,6 +60,12 @@ public class Principal {
 
 		System.out.println("\n< < < < < < < INTENTO MOSTRAR VEHICULOS ESTACIONADOS SIN LLAVE > > > > > > >");
 		e.mostrarVehiculosSinLlave();
+		
+		System.out.println("\n< < < < < < < INTENTO VERIFICAR SI UN DNI ESTA AUTORIZADO PARA RETIRAR ALGÚN VEHÍCULO > > > > > > >");
+		System.out.println(	g1.esPersonaAutorizada("1111"));
+		System.out.println(	g1.esPersonaAutorizada("2222"));
+		System.out.println(	g1.esPersonaAutorizada("5555"));
+
 
 	}
 

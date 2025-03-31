@@ -32,11 +32,20 @@ public class Tablero {
 		int pos = 0;
 		boolean encontrada = false;
 
-		while (pos < llavesDeVehiculosEstacionados.size() && llavesDeVehiculosEstacionados.get(pos) != null
-				&& !encontrada) {
-			encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
+		while (pos < llavesDeVehiculosEstacionados.size() && !encontrada) {
+			if (llavesDeVehiculosEstacionados.get(pos) != null) {
+				encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
+			}
 			pos++;
 		}
 		return encontrada;
+	}
+
+	public void mostrarLlaves() {
+		System.out.println("Muestro las llaves");
+		for (Llave llave : llavesDeVehiculosEstacionados) {
+			System.out.println(llave);
+		}
+
 	}
 }

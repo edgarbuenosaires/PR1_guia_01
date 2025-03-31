@@ -11,4 +11,11 @@ public class Llave {
 	public boolean esPatente(String patente) {
 		return this.patenteDelVehiculo.equalsIgnoreCase(patente);
 	}
+
+	@Override
+	public String toString() {
+		return "Llave [patenteDelVehiculo=" + patenteDelVehiculo + "]";
+	}
+	
+	
 }

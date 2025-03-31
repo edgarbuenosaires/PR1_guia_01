@@ -42,7 +42,7 @@ public class Vehiculo {
 			}
 			pos++;
 		}
-		return null;
+		return persona;
 	}
 
 	public String getPatente() {
