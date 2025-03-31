@@ -6,6 +6,7 @@ public class Principal {
 		Empresa e = new Empresa();
 
 		Tablero t1 = new Tablero();
+		
 		Garaje g1 = new Garaje("Garaje 1", t1);
 
 		e.agregarGaraje(g1);
@@ -36,6 +37,7 @@ public class Principal {
 		Persona p2 = new Persona("2222", "Juancito 2 Perez");
 		Persona p3 = new Persona("3333", "Juancito 3 Perez");
 		Persona p4 = new Persona("4444", "Juancito 4 Perez");
+		
 		v1.agregarPersonaAutorizada(p1);
 		v1.agregarPersonaAutorizada(p2);
 		v2.agregarPersonaAutorizada(p3);

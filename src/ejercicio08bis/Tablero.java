@@ -14,29 +14,29 @@ public class Tablero {
 	}
 
 	public Llave devovlerLlave(String patente) {
-		return llavesDeVehiculosEstacionados.remove(buscarPosDeLlave(patente));
-	}
-
-	private int buscarPosDeLlave(String patente) {
+		Llave buscada = null;
 		int pos = 0;
-		boolean encontrada = false;
-		while (pos < llavesDeVehiculosEstacionados.size() && !encontrada) {
-			encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
+
+		while (pos < llavesDeVehiculosEstacionados.size() && buscada == null) {
+			if (llavesDeVehiculosEstacionados.get(pos).esPatente(patente)) {
+				buscada = llavesDeVehiculosEstacionados.get(pos);
+			}
 			pos++;
 		}
-		return (encontrada) ? pos : null;
+		llavesDeVehiculosEstacionados.remove(buscada);
+		return buscada;
+
 	}
 
 	public boolean estaLlaveDelVehiculoPatante(String patente) {
 		int pos = 0;
 		boolean encontrada = false;
 
-		while (llavesDeVehiculosEstacionados.get(pos) != null && pos < llavesDeVehiculosEstacionados.size()
+		while (pos < llavesDeVehiculosEstacionados.size() && llavesDeVehiculosEstacionados.get(pos) != null
 				&& !encontrada) {
 			encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
 			pos++;
 		}
 		return encontrada;
 	}
-
 }
