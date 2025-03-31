@@ -5,35 +5,52 @@ import java.util.ArrayList;
 public class Vehiculo {
 	private String patente;
 	private Llave llave;
-	private boolean tieneLaLlavePuesta;
-	private ArrayList<Persona> personasAutorizadas;
+	private ArrayList<Persona> autorizadosParaRetirar;
+
+	public Vehiculo(String patente, Llave llave) {
+		this.patente = patente;
+		this.llave = llave;
+		this.autorizadosParaRetirar = new ArrayList<>();
+	}
 
 	public int getMesesAdeudados() {
-		// dado por la catedra
-		return 0;
+		return 3;
 	}
 
 	public Llave retirarLlave() {
-		this.tieneLaLlavePuesta = false;
-		return this.llave;
+		Llave temp = this.llave;
+		this.llave = null;
+		return temp;
+	}
+
+	public boolean esPatente(String pate) {
+		return this.patente.equalsIgnoreCase(pate);
+	}
+
+	public boolean tieneAutorizadoA(String dni) {
+		Persona persona = buscarPersonaPorDni(dni);
+		return persona != null;
+	}
+
+	private Persona buscarPersonaPorDni(String dni) {
+		Persona persona = null;
+		int pos = 0;
+
+		while (pos < autorizadosParaRetirar.size() && persona == null) {
+			if (autorizadosParaRetirar.get(pos).esDni(dni)) {
+				persona = autorizadosParaRetirar.get(pos);
+			}
+			pos++;
+		}
+		return persona;
 	}
 
 	public String getPatente() {
-		return patente;
+		return this.patente;
 	}
+	
 
-	public boolean esPersonaAutorizada(String dni) {
-		boolean esAutorizado = false;
-		int i = 0;
-		while (i < personasAutorizadas.size() && esAutorizado == false) {
-			esAutorizado = personasAutorizadas.get(i).getDni().equalsIgnoreCase(dni);
-			i++;
-		}
-		return esAutorizado;
+	public boolean agregarPersonaAutorizada(Persona p) {
+		return this.autorizadosParaRetirar.add(p);
 	}
-
-	public boolean isTieneLaLlavePuesta() {
-		return tieneLaLlavePuesta;
-	}
-
 }

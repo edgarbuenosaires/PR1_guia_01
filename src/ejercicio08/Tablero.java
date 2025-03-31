@@ -3,24 +3,49 @@ package ejercicio08;
 import java.util.ArrayList;
 
 public class Tablero {
-	private ArrayList<Llave> llaveDeEstacionados;
+	private ArrayList<Llave> llavesDeVehiculosEstacionados;
 
-	public Llave devolverLlave(String patente) {
-		// provisto por la catedra
-		return null;
+	public Tablero() {
+		this.llavesDeVehiculosEstacionados = new ArrayList<>();
 	}
 
-	public boolean agregarLlave(Llave llave) {
-		return this.llaveDeEstacionados.add(llave);
+	public void agregarLlave(Llave llave) {
+		this.llavesDeVehiculosEstacionados.add(llave);
 	}
 
-	public boolean estaLaLlave(String patente) {
-		int i = 0;
-		boolean estaLaLlave = false;
-		while (i < llaveDeEstacionados.size() && !estaLaLlave) {
-			estaLaLlave = (llaveDeEstacionados.get(i).getPatente().equalsIgnoreCase(patente));
-			i++;
+	public Llave devovlerLlave(String patente) {
+		Llave buscada = null;
+		int pos = 0;
+
+		while (pos < llavesDeVehiculosEstacionados.size() && buscada == null) {
+			if (llavesDeVehiculosEstacionados.get(pos).esPatente(patente)) {
+				buscada = llavesDeVehiculosEstacionados.get(pos);
+			}
+			pos++;
 		}
-		return estaLaLlave;
+		llavesDeVehiculosEstacionados.remove(buscada);
+		return buscada;
+
+	}
+
+	public boolean estaLlaveDelVehiculoPatante(String patente) {
+		int pos = 0;
+		boolean encontrada = false;
+
+		while (pos < llavesDeVehiculosEstacionados.size() && !encontrada) {
+			if (llavesDeVehiculosEstacionados.get(pos) != null) {
+				encontrada = llavesDeVehiculosEstacionados.get(pos).esPatente(patente);
+			}
+			pos++;
+		}
+		return encontrada;
+	}
+
+	public void mostrarLlaves() {
+		System.out.println("Muestro las llaves");
+		for (Llave llave : llavesDeVehiculosEstacionados) {
+			System.out.println(llave);
+		}
+
 	}
 }

@@ -1,4 +1,4 @@
-package ejercicio08bis;
+package ejercicio08;
 
 public class InformeEstadoGarajes {
 	private String codigoGaraje;

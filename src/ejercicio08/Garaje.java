@@ -3,69 +3,103 @@ package ejercicio08;
 import java.util.ArrayList;
 
 public class Garaje {
-	private static final int LIMITE_MESES_ADEUDADOS = 3;
 	private String codigo;
-	private ArrayList<Vehiculo> vehiculosEstacionados;
-	private ArrayList<Vehiculo> vehiculosRetirados;
+	private ArrayList<Vehiculo> estacionados;
+	private ArrayList<Vehiculo> retirados;
 	private Tablero tablero;
 
+	public Garaje(String codigo, Tablero tablero) {
+		this.codigo = codigo;
+		this.tablero = tablero;
+		this.estacionados = new ArrayList<>();
+		this.retirados = new ArrayList<>();
+	}
+
 	public Resultado estacionarVehiculo(String patente) {
-		Resultado resultado = null;
-		Vehiculo v = buscarVehiculo(vehiculosEstacionados, patente);
-		if (v == null) {
-			v = buscarVehiculo(vehiculosRetirados, patente);
-			if (v != null && v.getMesesAdeudados() <= LIMITE_MESES_ADEUDADOS) {
-				procesarIngreso(v);
-				resultado = Resultado.INGRESO_OK;
-			} else {
-				resultado = Resultado.VEHICULO_NO_HABILITADO;
-			}
+		Resultado resul = null;
+		Vehiculo v = null;
+		v = buscarVehiculoEn(estacionados, patente);
+
+		if (v != null) {
+			resul = Resultado.VEHICULO_YA_ESTACIONADO;
 		} else {
-			resultado = Resultado.VEHICULO_YA_ESTACIONADO;
+			v = buscarVehiculoEn(retirados, patente);
+			if (v != null) {
+				if (v.getMesesAdeudados() < Empresa.MESES_TOLERADOS) {
+					ingresarVehiculo(v);
+					resul = Resultado.INGRESO_OK;
+				} else {
+					resul = Resultado.NO_ESTACIONA_ADEUDA;
+				}
+			} else {
+				resul = Resultado.VEHICULO_NO_HABILITADO;
+			}
 		}
-		return resultado;
+		return resul;
 	}
 
-	private void procesarIngreso(Vehiculo v) {
+	private Vehiculo buscarVehiculoEn(ArrayList<Vehiculo> vehiculos, String patente) {
+		Vehiculo v = null;
+		int pos = 0;
+
+		while (pos < vehiculos.size() && v == null) {
+			if (vehiculos.get(pos).esPatente(patente)) {
+				v = vehiculos.get(pos);
+			}
+			pos++;
+		}
+		return v;
+	}
+
+	private void ingresarVehiculo(Vehiculo v) {
+		retirados.remove(v);
+		estacionados.add(v);
 		tablero.agregarLlave(v.retirarLlave());
-		vehiculosEstacionados.add(v);
-		vehiculosRetirados.remove(v);
-
-	}
-
-	private Vehiculo buscarVehiculo(ArrayList<Vehiculo> vehiculos, String patente) {
-		int i = 0;
-		Vehiculo buscado = null;
-		while (i < vehiculos.size() && buscado == null) {
-			if (vehiculos.get(i).getPatente().equalsIgnoreCase(patente))
-				buscado = vehiculos.get(i);
-			i++;
-		}
-		return buscado;
 	}
 
 	public boolean esPersonaAutorizada(String dni) {
-		boolean esAutorizado = false;
-		int i = 0;
-		while (i < vehiculosEstacionados.size() && esAutorizado == false) {
-			esAutorizado = vehiculosEstacionados.get(i).esPersonaAutorizada(dni);
-			i++;
+		Vehiculo vehiculo = null;
+		int pos = 0;
+
+		while (pos < estacionados.size() && vehiculo == null) {
+			if (estacionados.get(pos).tieneAutorizadoA(dni)) {
+				vehiculo = estacionados.get(pos);
+			}
+			pos++;
 		}
-		return esAutorizado;
+		return vehiculo != null;
 	}
 
-	public void obtenerInformeEstadoGaraje() {
-		System.out.println(
-				"Codigo: " + this.codigo + " tiene " + vehiculosEstacionados.size() + " vehiculos estacionados.");
-
+	public String getCodigo() {
+		return this.codigo;
 	}
 
-	public void mostrarVehiculosSinLlave() {
-		System.out.println("VEHICULOS SIN LLAVE:");
-		for (Vehiculo v : vehiculosEstacionados) {
-			if (!this.tablero.estaLaLlave(v.getPatente()))
-				System.out.println(this.codigo + " vehiculo " + v.getPatente());
-		}
+	public int getCantVehiculosEstacionados() {
+		return this.estacionados.size();
+	}
 
+	public void mostrarVehiculosEstacionadosSinLlaveEnTablero() {
+		for (Vehiculo v : estacionados) {
+			if (!tablero.estaLlaveDelVehiculoPatante(v.getPatente())) {
+				System.out.println("Garaje: " + this.codigo + " patente: " + v.getPatente());
+			}
+		}
+	}
+
+	public void agregarVehiculoYLlave(Vehiculo v, Llave llave) {
+		estacionados.add(v);
+		tablero.agregarLlave(llave);
+		System.out.println("Vehiculo patente: " + v.getPatente() + " agregado con éxito.");
+	}
+
+	public void retirarVehiculo(Vehiculo buscado) {
+		Vehiculo vehiculo = null;
+		vehiculo = buscarVehiculoEn(estacionados, buscado.getPatente());
+		if (vehiculo != null) {
+			estacionados.remove(vehiculo);
+			System.out.println("se retiró vehiculo patente " + vehiculo.getPatente());
+			tablero.devovlerLlave(vehiculo.getPatente());
+			retirados.add(vehiculo);
+		}
 	}
 }
