@@ -5,34 +5,43 @@ import java.util.ArrayList;
 public class Cancion {
 	private String id;
 	private String nombre;
-	private int duracionEnSegundos;
-	private ArrayList<Usuario> usuariosQueDieronLike;
+	private int duración;
+	private ArrayList<Usuario> usuariosLike;
 
-	public Cancion(String id, String nombre, int duracionEnSegundos) {
+	public Cancion(String id, String nombre, int duración) {
 		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.duracionEnSegundos = duracionEnSegundos;
-		this.usuariosQueDieronLike = new ArrayList<Usuario>();
+		this.duración = duración;
+		this.usuariosLike = new ArrayList<>();
 	}
 
-	public int getDuracion() {
-		return this.duracionEnSegundos;
+	public boolean agregarLikeDeUsuario(Usuario u) {
+		return this.usuariosLike.add(u);
 	}
 
-	public boolean usuarioDioLike(Usuario u) {
-		boolean encontrado = false;
-		int i = 0;
-		while (i < usuariosQueDieronLike.size() && encontrado == false) {
-			encontrado = (usuariosQueDieronLike.get(i) == u);
-			i++;
+	public int getDuración() {
+		return this.duración;
+	}
+
+	public boolean elUsuarioDioLike(Usuario u) {
+		boolean existeElUsuario = false;
+		int pos = 0;
+
+		while (pos < usuariosLike.size() && !existeElUsuario) {
+			existeElUsuario = usuariosLike.get(pos) == u;
+			pos++;
 		}
-		return encontrado;
+		return existeElUsuario;
+	}
+
+	public void eliminarUsuarioLike(Usuario u) {
+		usuariosLike.remove(u);
 	}
 
 	@Override
 	public String toString() {
-		return "Cancion [id=" + id + ", nombre=" + nombre + ", duracionEnSegundos=" + duracionEnSegundos + "]";
+		return "Cancion [id=" + id + ", nombre=" + nombre + ", duración=" + duración + "]";
 	}
 
 }

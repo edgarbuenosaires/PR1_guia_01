@@ -7,32 +7,50 @@ public class Aplicacion {
 	private ArrayList<Usuario> usuarios;
 
 	public Aplicacion() {
-		super();
-		this.artistas = new ArrayList<Artista>();
-		this.usuarios = new ArrayList<Usuario>();
+		artistas = new ArrayList<>();
+		usuarios = new ArrayList<>();
 	}
 
-	public Usuario borrarUsuario(String nomUsuario) {
-		return usuarios.remove(buscarIdxNomUsuario(nomUsuario));
+	public boolean agregarArtista(Artista a) {
+		return this.artistas.add(a);
 	}
 
-	private int buscarIdxNomUsuario(String nomUsuario) {
-		int idx = 0;
-		int i = 0;
+	public boolean agregarUsuario(Usuario u) {
+		return this.usuarios.add(u);
+	}
+
+	private int buscarPosUsuario(String nom) {
 		boolean encontrado = false;
-		while (i < usuarios.size() && !encontrado) {
-			if (usuarios.get(i).getNomUuario().equalsIgnoreCase(nomUsuario)) {
+		int pos = usuarios.size() - 1;
+
+		while (pos >= 0 && !encontrado) {
+			if (usuarios.get(pos).esNombreUsuario(nom)) {
 				encontrado = true;
-				idx = i;
+			} else {
+				pos--;
 			}
-			i++;
 		}
-		return idx;
+		return pos;
 	}
 
-	public void mostrarArtistas() {
-		for (Artista a : artistas) {
-			System.out.println(a.mostrar());
+	public Usuario borrarUsuario(String nom) {
+		Usuario u = null;
+		int pos = buscarPosUsuario(nom);
+		if (usuarios.get(pos) != null) {
+			u = usuarios.get(pos);
+
+			for (Artista a : artistas) {
+				a.eliminarUsuarioLike(u);
+			}
 		}
+		return (pos >= 0) ? usuarios.remove(pos) : null;
 	}
+
+	public void mostrarUsuarios() {
+		for (Usuario usuario : usuarios) {
+			System.out.println(usuario);
+		}
+
+	}
+
 }

@@ -1,21 +1,22 @@
 package ejercicio09;
 
 public class Usuario {
-	private String nomUsuario;
-	private Estado estado;
+	private String nombreUsuario;
+	private EstadoUsuario estado;
 
-	public Usuario(String nomUsuario, Estado estado) {
+	public Usuario(String nombreUsuario, EstadoUsuario estado) {
 		super();
-		this.nomUsuario = nomUsuario;
+		this.nombreUsuario = nombreUsuario;
 		this.estado = estado;
 	}
 
-	public String getNomUuario() {
-		return this.nomUsuario;
+	public boolean esNombreUsuario(String nom) {
+		return this.nombreUsuario.equalsIgnoreCase(nom);
 	}
 
-	public Estado getEstado() {
-		return estado;
+	@Override
+	public String toString() {
+		return "Usuario [nombreUsuario=" + nombreUsuario + ", estado=" + estado + "]";
 	}
 
 }

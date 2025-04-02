@@ -3,47 +3,61 @@ package ejercicio09;
 import java.util.ArrayList;
 
 public class Artista {
-	private static final int LIM_CANCIONES = 5;
+	private static final int CANT_PRIMERAS_CANCIONES = 5;
 	private String id;
 	private String nombre;
 	private ArrayList<Cancion> canciones;
 
 	public Artista(String id, String nombre) {
-		super();
 		this.id = id;
 		this.nombre = nombre;
-		this.canciones = new ArrayList<Cancion>();
+		this.canciones = new ArrayList<>();
+	}
+
+	public boolean agregarCancion(Cancion c) {
+		return this.canciones.add(c);
 	}
 
 	public String mostrarDuracionPromedio() {
 		int acum = 0;
-		for (Cancion c : canciones) {
-			acum += c.getDuracion();
+		int minutos = 0;
+		int segundos = 0;
+		for (Cancion cancion : canciones) {
+			acum += cancion.getDuración();
 		}
-		return acum / canciones.size() + " minutos y " + acum % canciones.size() + " segundos.";
+		if (acum > 60) {
+			minutos = acum / 60;
+		}
+		segundos = acum % 60;
+		return "La duración promedio es " + minutos + " minutos, " + segundos + " segundos.";
 	}
 
 	public boolean esFanDestacado(Usuario u) {
-		int cont = 0;
+		return numCancionesQueDioLike(u) >= (canciones.size() / 2);
+	}
+
+	private int numCancionesQueDioLike(Usuario u) {
+		int cant = 0;
 		for (Cancion c : canciones) {
-			if (c.usuarioDioLike(u))
-				cont++;
+			if (c.elUsuarioDioLike(u)) {
+				cant++;
+			}
 		}
-		return cont >= (canciones.size() / 2);
+		return cant;
 	}
 
-	public ArrayList<Cancion> priemras5Canciones() {
-		ArrayList<Cancion> primerasCinco = new ArrayList<Cancion>();
-		int i = 0;
-		while (i < canciones.size() && primerasCinco.size() <= LIM_CANCIONES) {
-			primerasCinco.add(canciones.get(i));
-			i++;
+	public ArrayList<Cancion> primerasCanciones() {
+		ArrayList<Cancion> primerasCanciones = new ArrayList<>();
+		int fin = (canciones.size() > CANT_PRIMERAS_CANCIONES) ? CANT_PRIMERAS_CANCIONES : canciones.size();
+		for (int i = 0; i < fin; i++) {
+			primerasCanciones.add(canciones.get(i));
 		}
-		return primerasCinco;
+		return primerasCanciones;
 	}
 
-	public String mostrar() {
-		return "Artista [id=" + id + ", nombre=" + nombre + "]";
+	public void eliminarUsuarioLike(Usuario u) {
+		for (Cancion c : canciones) {
+			c.eliminarUsuarioLike(u);
+		}
 	}
-
 }
