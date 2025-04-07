@@ -3,49 +3,55 @@ package ejercicio10;
 import java.util.ArrayList;
 
 public class Juego {
-	private String nombre;
+	private String nombreJuego;
 	private ArrayList<Mesa> mesasAsignadas;
 
-	public Juego(String nombre) {
+	public Juego(String nombreJuego) {
 		super();
-		this.nombre = nombre;
-		this.mesasAsignadas = new ArrayList<Mesa>();
-	}
-
-	public int lugaresDisponibles() {
-		int acum = 0;
-		for (Mesa m : mesasAsignadas) {
-			acum += m.lugaresDisponibles();
-		}
-		return acum;
+		this.nombreJuego = nombreJuego;
+		this.mesasAsignadas = new ArrayList<>();
 	}
 
 	public String getNombre() {
-		return this.nombre;
+		return this.nombreJuego;
 	}
 
-	public Resultado agregarloAMesaConMasJugadores(String nomJugador, int edad) {
-		Resultado resultado = null;
-		Mesa mesa = mesaConMasJugadores();
-		if (mesa != null) {
-			if (mesa.agregarParicipante(new Participante(nomJugador, edad)))
-				resultado = Resultado.ASIGNACION_OK;
-		} else {
-			resultado = Resultado.SIN_DISPONIBILIDAD;
+	public int getDisponibilidad() {
+		int disponibilidad = 0;
+		for (Mesa mesa : mesasAsignadas) {
+			disponibilidad += mesa.getDisponibilidad();
 		}
-		return resultado;
+		return disponibilidad;
 	}
 
-	private Mesa mesaConMasJugadores() {
-		Mesa buscada = null;
-		int numMenorDisponibilidad = Integer.MAX_VALUE;
-		for (Mesa m : mesasAsignadas) {
-			if (m.lugaresDisponibles() < numMenorDisponibilidad) {
-				buscada = m;
-				numMenorDisponibilidad = m.lugaresDisponibles();
+	public boolean asignar(Participante jugador) {
+		boolean asignacionOk = false;
+		int pos = 0;
+		while (pos < mesasAsignadas.size() && !asignacionOk) {
+			if (mesasAsignadas.get(pos).getDisponibilidad() > 0) {
+				asignacionOk = mesasAsignadas.get(pos).asignar(jugador);
 			}
+			pos++;
 		}
-		return buscada;
+		return asignacionOk;
+	}
+
+	public boolean agregarMesa(Mesa m) {
+		return mesasAsignadas.add(m);
+	}
+
+	public void generarCartas() {
+		for (Mesa mesa : mesasAsignadas) {
+			mesa.generarCartas();
+		}
+
+	}
+
+	public void repartirCartas() {
+		for (Mesa mesa : mesasAsignadas) {
+			mesa.repartirCartas();
+		}
+
 	}
 
 }

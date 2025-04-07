@@ -3,57 +3,52 @@ package ejercicio10;
 import java.util.ArrayList;
 
 public class Mesa {
-	private static final int NUM_DE_CARTAS = 4;
-	private static final int NUM_MIN_JUGADORES = 2;
-	private int numero;
-	private int cantMaximaDePatricipantes;
-	private ArrayList<Participante> participantesJugando;
+	private static final int CARTAS_A_REPARTIR = 4;
+	private static final int MIN_CANT_JUGADORES = 2;
+	private static final int CARTAS_POR_PALO = 12;
+	private int numeroMesa;
+	private int cantMaximaDeParticipantes;
+	private ArrayList<Participante> jugadores;
 	private ArrayList<Carta> mazo;
 
-	public Mesa(int numero, int cantMaximaDePatricipantes) {
+	public Mesa(int numeroMesa, int cantMaximaDeParticipantes) {
 		super();
-		this.numero = numero;
-		this.cantMaximaDePatricipantes = cantMaximaDePatricipantes;
-		this.participantesJugando = new ArrayList<Participante>();
-		this.mazo = new ArrayList<Carta>();
-	}
-
-	public int lugaresDisponibles() {
-		return cantMaximaDePatricipantes - participantesJugando.size();
-	}
-
-	public boolean agregarParicipante(Participante p) {
-		boolean seAgrego = false;
-		if (participantesJugando.size() < cantMaximaDePatricipantes) {
-			seAgrego = participantesJugando.add(p);
-			System.out.println("Se agrego el participante a la mesa.");
-		} else {
-			System.out.println("No se pueden agregar mas participantes a la mesa.");
-		}
-		return seAgrego;
+		this.numeroMesa = numeroMesa;
+		this.cantMaximaDeParticipantes = cantMaximaDeParticipantes;
+		this.jugadores = new ArrayList<>();
+		this.mazo = new ArrayList<>();
 	}
 
 	public boolean repartirCartas() {
-		boolean seRepartieron = false;
-		if (participantesJugando.size() >= NUM_MIN_JUGADORES
-				&& (mazo.size() * NUM_DE_CARTAS) > participantesJugando.size()) {
-			for (int i = 0; i < NUM_DE_CARTAS; i++) {
-				for (Participante p : participantesJugando) {
-					p.tomarCarta(mazoRepartir());
+		boolean realizado = false;
+
+		if (jugadores.size() >= MIN_CANT_JUGADORES && mazo.size() >= (jugadores.size() * CARTAS_A_REPARTIR)) {
+			for (int i = 0; i < CARTAS_A_REPARTIR; i++) {
+				for (int j = 0; j < jugadores.size(); j++) {
+					jugadores.get(j).recibeCarta(mazo.remove(i));
 				}
 			}
-			seRepartieron = true;
+			realizado = true;
 		}
-		return seRepartieron;
+		System.out.println("La cantidad de jugadores es " + jugadores.size() + " " + realizado);
+		return realizado;
 	}
 
-	private Carta mazoRepartir() {
-		return this.mazo.remove(0);
+	public int getDisponibilidad() {
+		return cantMaximaDeParticipantes - jugadores.size();
 	}
 
-	@Override
-	public String toString() {
-		return "Mesa [numero=" + numero + ", cantMaximaDePatricipantes=" + cantMaximaDePatricipantes + "]";
+	public boolean asignar(Participante jugador) {
+		return jugadores.add(jugador);
 	}
 
+	public void generarCartas() {
+		for (int i = 0; i < Palo.values().length; i++) {
+			for (int j = 0; j < CARTAS_POR_PALO; j++) {
+				Carta c = new Carta(Palo.values()[i], j + 1);
+				mazo.add(c);
+			}
+		}
+		System.out.println("CARTAS GENERADAS. Mesa " + numeroMesa);
+	}
 }

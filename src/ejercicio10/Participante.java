@@ -11,16 +11,12 @@ public class Participante {
 		super();
 		this.nombre = nombre;
 		this.edad = edad;
-		this.cartasEnMano = new ArrayList<Carta>();
+		this.cartasEnMano = new ArrayList<>();
 	}
 
-	public boolean tomarCarta(Carta c) {
-		return this.cartasEnMano.add(c);
-	}
+	public boolean recibeCarta(Carta c) {
+		return cartasEnMano.add(c);
 
-	@Override
-	public String toString() {
-		return "Participante [nombre=" + nombre + ", edad=" + edad + "]";
 	}
 
 }
